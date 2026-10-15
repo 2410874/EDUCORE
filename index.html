@@ -1,0 +1,2908 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educore | Diagnóstico Tecnológico para Instituciones Educativas en el Perú</title>
+  <meta name="description" content="Descubre qué tecnología necesita realmente tu institución antes de invertir. Diagnóstico ágil de hardware, software, conectividad y adopción docente para directores y líderes educativos del Perú.">
+  
+  <!-- Google Fonts: Inter & DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       VARIABLES Y ESTILOS GLOBALES
+       ========================================================================== */
+    :root {
+      /* Paleta institucional especificada */
+      --color-bg: #FFFFFF;
+      --color-text: #1A1A2E;
+      --color-text-muted: #5A607F;
+      --color-text-light: #8E95AF;
+      --color-primary: #1B4FD8;
+      --color-primary-dark: #12389E;
+      --color-primary-light: #EBF1FF;
+      --color-accent: #00B4D8;
+      --color-accent-dark: #0096B4;
+      --color-accent-light: #E0F8FC;
+      --color-bg-alt: #F4F6F9;
+      --color-bg-card: #FFFFFF;
+      --color-border: #E2E8F0;
+      --color-border-hover: #CBD5E1;
+      
+      /* Estados de Madurez */
+      --color-status-initial: #F59E0B;
+      --color-status-initial-bg: #FEF3C7;
+      --color-status-developing: #1B4FD8;
+      --color-status-developing-bg: #EBF1FF;
+      --color-status-advanced: #10B981;
+      --color-status-advanced-bg: #D1FAE5;
+
+      /* Sombras y elevaciones */
+      --shadow-sm: 0 1px 3px rgba(26, 26, 46, 0.06), 0 1px 2px rgba(26, 26, 46, 0.04);
+      --shadow-md: 0 4px 12px rgba(26, 26, 46, 0.08), 0 2px 4px rgba(26, 26, 46, 0.04);
+      --shadow-lg: 0 12px 28px rgba(27, 79, 216, 0.10), 0 4px 10px rgba(26, 26, 46, 0.05);
+      --shadow-card-hover: 0 14px 30px rgba(27, 79, 216, 0.12), 0 6px 12px rgba(0, 180, 216, 0.08);
+
+      /* Tipografía y radios */
+      --font-main: 'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Inter', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Reset y base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-main);
+      color: var(--color-text);
+      line-height: 1.25;
+      font-weight: 700;
+    }
+
+    p {
+      color: var(--color-text-muted);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: var(--font-main);
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
+
+    input, select, textarea {
+      font-family: var(--font-body);
+      outline: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .badge-primary {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .badge-accent {
+      background: var(--color-accent-light);
+      color: var(--color-accent-dark);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 48px auto;
+    }
+
+    .section-header h2 {
+      font-size: 2.2rem;
+      margin: 12px 0 16px 0;
+      letter-spacing: -0.02em;
+    }
+
+    .section-header p {
+      font-size: 1.08rem;
+    }
+
+    /* ==========================================================================
+       HEADER & NAVEGACIÓN
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--color-border);
+      transition: var(--transition);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-main);
+      font-weight: 800;
+      font-size: 1.45rem;
+      color: var(--color-text);
+      letter-spacing: -0.03em;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      box-shadow: 0 4px 10px rgba(0, 180, 216, 0.35);
+    }
+
+    .brand-logo span.dot {
+      color: var(--color-accent);
+    }
+
+    .brand-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: var(--color-bg-alt);
+      color: var(--color-text-muted);
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--color-border);
+      margin-left: 4px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-link {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      transition: var(--transition);
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-link {
+        display: inline-block;
+      }
+    }
+
+    .nav-link:hover {
+      color: var(--color-primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 26px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(27, 79, 216, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(27, 79, 216, 0.4);
+    }
+
+    .btn-accent {
+      background: var(--color-accent);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(0, 180, 216, 0.3);
+    }
+
+    .btn-accent:hover {
+      background: var(--color-accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 180, 216, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-text);
+      border: 1.5px solid var(--color-border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .btn-sm {
+      padding: 9px 18px;
+      font-size: 0.88rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .btn-lg {
+      padding: 16px 34px;
+      font-size: 1.05rem;
+      border-radius: var(--radius-md);
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    /* ==========================================================================
+       SECCIÓN 1: INICIO — HERO & BENEFICIOS
+       ========================================================================== */
+    .hero-section {
+      padding: 64px 0 72px 0;
+      background: radial-gradient(circle at 85% 15%, rgba(0, 180, 216, 0.08) 0%, transparent 45%),
+                  radial-gradient(circle at 10% 90%, rgba(27, 79, 216, 0.06) 0%, transparent 50%),
+                  var(--color-bg);
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    @media (min-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 60px;
+      }
+    }
+
+    .hero-content {
+      max-width: 620px;
+    }
+
+    .hero-title {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin: 18px 0 20px 0;
+      color: var(--color-text);
+    }
+
+    .hero-title .highlight {
+      color: var(--color-primary);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-description {
+      font-size: 1.14rem;
+      color: var(--color-text-muted);
+      margin-bottom: 32px;
+      line-height: 1.68;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 36px;
+    }
+
+    .hero-meta-stats {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--color-border);
+      flex-wrap: wrap;
+    }
+
+    .meta-stat-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .meta-stat-icon {
+      color: var(--color-accent);
+      display: flex;
+      align-items: center;
+    }
+
+    .meta-stat-text {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--color-text);
+      line-height: 1.25;
+    }
+
+    .meta-stat-text span {
+      display: block;
+      font-weight: 400;
+      color: var(--color-text-muted);
+      font-size: 0.78rem;
+    }
+
+    /* Hero Visual Card */
+    .hero-visual-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--color-border);
+      position: relative;
+    }
+
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .hero-card-header h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .radar-preview-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .radar-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .radar-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .radar-bar-bg {
+      height: 8px;
+      background: var(--color-bg-alt);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .radar-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 1.2s ease;
+    }
+
+    .fill-hardware { width: 75%; background: var(--color-primary); }
+    .fill-software { width: 60%; background: var(--color-accent); }
+    .fill-infra { width: 45%; background: #6366F1; }
+    .fill-docente { width: 68%; background: #10B981; }
+
+    .hero-card-footer {
+      margin-top: 24px;
+      padding: 14px 18px;
+      background: var(--color-bg-alt);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.84rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Tarjetas de Beneficios */
+    .benefits-section {
+      padding: 32px 0 80px 0;
+      background: var(--color-bg);
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .benefits-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .benefit-card {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 32px 26px;
+      transition: var(--transition);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .benefit-card:hover {
+      border-color: rgba(27, 79, 216, 0.3);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .benefit-icon-wrapper {
+      width: 54px;
+      height: 54px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .benefit-icon-1 { background: var(--color-primary-light); color: var(--color-primary); }
+    .benefit-icon-2 { background: var(--color-accent-light); color: var(--color-accent-dark); }
+    .benefit-icon-3 { background: #EEF2FF; color: #4F46E5; }
+
+    .benefit-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .benefit-card p {
+      font-size: 0.94rem;
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       SECCIÓN 2: DIAGNÓSTICO DE NECESIDADES TECNOLÓGICAS
+       ========================================================================== */
+    .diag-section {
+      padding: 80px 0;
+      background: var(--color-bg-alt);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      position: relative;
+    }
+
+    .quiz-container {
+      max-width: 820px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--color-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 640px) {
+      .quiz-container {
+        padding: 24px 18px;
+      }
+    }
+
+    /* Barra de progreso */
+    .progress-header {
+      margin-bottom: 30px;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+    }
+
+    .dimension-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      background: var(--color-primary-light);
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .progress-bar-track {
+      width: 100%;
+      height: 8px;
+      background: #E2E8F0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+      border-radius: 999px;
+      transition: width 0.35s ease;
+      width: 14%;
+    }
+
+    /* Pregunta actual */
+    .question-step {
+      display: none;
+      animation: fadeIn 0.35s ease-in-out;
+    }
+
+    .question-step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .question-step h3 {
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+      color: var(--color-text);
+      font-weight: 700;
+    }
+
+    .question-instruction {
+      font-size: 0.92rem;
+      color: var(--color-text-muted);
+      margin-bottom: 24px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .option-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 20px;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      background: #FFFFFF;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .option-card:hover {
+      border-color: rgba(0, 180, 216, 0.6);
+      background: #F8FCFE;
+      transform: translateY(-2px);
+    }
+
+    .option-card.selected {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+      box-shadow: 0 4px 12px rgba(27, 79, 216, 0.12);
+    }
+
+    .option-indicator {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid #CBD5E1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: var(--transition);
+      background: #FFFFFF;
+    }
+
+    .option-card.selected .option-indicator {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+    }
+
+    .option-indicator::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .option-card.selected .option-indicator::after {
+      opacity: 1;
+    }
+
+    .option-content {
+      flex: 1;
+    }
+
+    .option-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 4px;
+    }
+
+    .option-card.selected .option-title {
+      color: var(--color-primary-dark);
+    }
+
+    .option-desc {
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+      line-height: 1.45;
+    }
+
+    .option-icon {
+      color: var(--color-accent-dark);
+      margin-left: auto;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      padding-top: 4px;
+    }
+
+    /* Acciones de navegación del test */
+    .quiz-nav-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .quiz-hint {
+      font-size: 0.82rem;
+      color: var(--color-text-light);
+    }
+
+    /* ==========================================================================
+       SECCIÓN 3: RESULTADO DEL DIAGNÓSTICO
+       ========================================================================== */
+    .results-section {
+      padding: 80px 0;
+      background: #FFFFFF;
+      display: none; /* Se activa tras completar el test */
+    }
+
+    .results-section.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .results-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-lg);
+      padding: 44px;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 768px) {
+      .results-card {
+        padding: 24px 18px;
+      }
+    }
+
+    .results-overview-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    @media (min-width: 840px) {
+      .results-overview-grid {
+        grid-template-columns: 320px 1fr;
+      }
+    }
+
+    /* Medidor de madurez digital */
+    .gauge-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: var(--color-bg-alt);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      text-align: center;
+    }
+
+    .score-circle {
+      position: relative;
+      width: 170px;
+      height: 170px;
+      margin-bottom: 16px;
+    }
+
+    .score-circle svg {
+      transform: rotate(-90deg);
+      width: 100%;
+      height: 100%;
+    }
+
+    .score-circle-bg {
+      fill: none;
+      stroke: #E2E8F0;
+      stroke-width: 12;
+    }
+
+    .score-circle-progress {
+      fill: none;
+      stroke: var(--color-accent);
+      stroke-width: 12;
+      stroke-linecap: round;
+      stroke-dasharray: 440;
+      stroke-dashoffset: 440;
+      transition: stroke-dashoffset 1.4s ease-out;
+    }
+
+    .score-inner-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .score-number {
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1;
+      font-family: var(--font-main);
+      color: var(--color-text);
+    }
+
+    .score-max {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text-light);
+    }
+
+    .maturity-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+
+    .badge-level-initial {
+      background: var(--color-status-initial-bg);
+      color: var(--color-status-initial);
+    }
+
+    .badge-level-developing {
+      background: var(--color-status-developing-bg);
+      color: var(--color-primary);
+    }
+
+    .badge-level-advanced {
+      background: var(--color-status-advanced-bg);
+      color: var(--color-status-advanced);
+    }
+
+    .results-details h3 {
+      font-size: 1.8rem;
+      margin-bottom: 14px;
+      color: var(--color-text);
+    }
+
+    .results-details p.lead-explanation {
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: var(--color-text-muted);
+      margin-bottom: 24px;
+    }
+
+    /* Desglose por dimensiones */
+    .dimensions-breakdown {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding-top: 18px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    @media (max-width: 580px) {
+      .dimensions-breakdown {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dim-item {
+      background: var(--color-bg-alt);
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+    }
+
+    .dim-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .dim-bar {
+      height: 6px;
+      background: #E2E8F0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .dim-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 1s ease;
+    }
+
+    /* ==========================================================================
+       SECCIÓN 4: RECOMENDACIONES PERSONALIZADAS
+       ========================================================================== */
+    .recommendations-wrapper {
+      margin-top: 48px;
+    }
+
+    .recs-header {
+      margin-bottom: 24px;
+    }
+
+    .recs-header h3 {
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .recs-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .recs-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .rec-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 26px 22px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .rec-card:hover {
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .rec-badge {
+      display: inline-block;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+
+    .rec-badge-high {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    .rec-badge-strategic {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .rec-badge-growth {
+      background: var(--color-accent-light);
+      color: var(--color-accent-dark);
+    }
+
+    .rec-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--color-bg-alt);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .rec-card h4 {
+      font-size: 1.12rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .rec-card p {
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: var(--color-text-muted);
+    }
+
+    /* ==========================================================================
+       SECCIÓN 5: FORMULARIO PARA SOLICITAR ASESORÍA
+       ========================================================================== */
+    .advisory-section {
+      padding: 80px 0;
+      background: var(--color-bg-alt);
+      border-top: 1px solid var(--color-border);
+      position: relative;
+    }
+
+    .advisory-box {
+      max-width: 820px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      padding: 44px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--color-border);
+    }
+
+    @media (max-width: 640px) {
+      .advisory-box {
+        padding: 24px 18px;
+      }
+    }
+
+    .advisory-header {
+      text-align: center;
+      margin-bottom: 34px;
+    }
+
+    .advisory-header h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .advisory-header p {
+      font-size: 1.02rem;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .advisory-context-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-accent-light);
+      color: var(--color-accent-dark);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 14px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 640px) {
+      .form-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .form-full {
+        grid-column: span 2;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-label .optional {
+      font-size: 0.78rem;
+      color: var(--color-text-light);
+      font-weight: 400;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 13px 16px;
+      font-size: 0.95rem;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background: #FFFFFF;
+      color: var(--color-text);
+      transition: var(--transition);
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(27, 79, 216, 0.12);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .radio-pill-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .radio-pill-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      transition: var(--transition);
+    }
+
+    .radio-pill-group input[type="radio"] {
+      display: none;
+    }
+
+    .radio-pill-group input[type="radio"]:checked + .radio-pill-label {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .form-footer-note {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.82rem;
+      color: var(--color-text-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    /* ==========================================================================
+       SECCIÓN 6: CONFIRMACIÓN DE SOLICITUD (ÉXITO)
+       ========================================================================== */
+    .confirmation-section {
+      padding: 80px 0;
+      background: var(--color-bg);
+      display: none; /* Se activa tras enviar el form */
+    }
+
+    .confirmation-section.active {
+      display: block;
+      animation: fadeIn 0.45s ease;
+    }
+
+    .success-card {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      border: 1.5px solid var(--color-border);
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .success-card {
+        padding: 28px 18px;
+      }
+    }
+
+    .success-icon-badge {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #D1FAE5;
+      color: #10B981;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px auto;
+    }
+
+    .success-card h2 {
+      font-size: 2.1rem;
+      margin-bottom: 12px;
+      color: var(--color-text);
+    }
+
+    .success-card p.success-intro {
+      font-size: 1.05rem;
+      color: var(--color-text-muted);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .summary-ticket {
+      background: var(--color-bg-alt);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-bottom: 32px;
+      text-align: left;
+      border: 1px solid var(--color-border);
+    }
+
+    .summary-ticket-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 0.92rem;
+    }
+
+    .summary-row span:first-child {
+      color: var(--color-text-muted);
+    }
+
+    .summary-row span:last-child {
+      font-weight: 600;
+      color: var(--color-text);
+      text-align: right;
+    }
+
+    .success-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    .site-footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--color-border);
+      padding: 48px 0 32px 0;
+    }
+
+    .footer-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .footer-grid {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      margin-top: 8px;
+      max-width: 420px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--color-primary);
+    }
+
+    .footer-bottom {
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* ==========================================================================
+       ESTILOS PARA IMPRESIÓN (PDF / PRINT)
+       ========================================================================== */
+    @media print {
+      body {
+        background: #FFFFFF;
+        color: #000000;
+      }
+      .site-header, .hero-section, .benefits-section, .quiz-nav-footer, .advisory-section, .site-footer, .btn, .hero-cta-group {
+        display: none !important;
+      }
+      .results-section, .confirmation-section {
+        display: block !important;
+      }
+      .results-card, .success-card {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       HEADER / NAVEGACIÓN
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#inicio" class="brand-logo" aria-label="Educore Inicio">
+        <div class="brand-icon">
+          <!-- Icono SVG Educore (Graduación + Núcleo Tecnológico) -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <span>Educore<span class="dot">.</span></span>
+        <span class="brand-tag">Perú</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="#beneficios" class="nav-link">Beneficios</a>
+        <a href="#diagnostico" class="nav-link">Diagnóstico</a>
+        <a href="#asesoria" class="nav-link">Asesoría</a>
+        <a href="#diagnostico" class="btn btn-primary btn-sm" id="btnHeaderCta">
+          <span>Iniciar Diagnóstico</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       SECCIÓN 1: INICIO — HERO & PROPUESTA DE VALOR
+       ========================================================================== -->
+  <section class="hero-section" id="inicio">
+    <div class="container hero-grid">
+      <!-- Columna Texto -->
+      <div class="hero-content">
+        <div class="badge badge-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 14 14"></polyline>
+          </svg>
+          Diagnóstico Estratégico EdTech • Perú
+        </div>
+
+        <h1 class="hero-title">
+          Descubre qué tecnología necesita realmente tu institución <span class="highlight">antes de invertir.</span>
+        </h1>
+
+        <p class="hero-description">
+          Ayudamos a directores, promotores y coordinadores de colegios e institutos del Perú a evaluar con precisión su infraestructura, software, equipamiento y adopción docente para tomar decisiones de inversión inteligentes y sostenibles.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#diagnostico" class="btn btn-primary btn-lg" id="btnHeroDiagnostico">
+            <span>Iniciar diagnóstico gratuito</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a href="#beneficios" class="btn btn-outline btn-lg">
+            <span>Conoce el método</span>
+          </a>
+        </div>
+
+        <!-- Meta stats para directivos peruanos -->
+        <div class="hero-meta-stats">
+          <div class="meta-stat-item">
+            <div class="meta-stat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <div class="meta-stat-text">
+              100% Sin costo
+              <span>Diagnóstico inmediato</span>
+            </div>
+          </div>
+          <div class="meta-stat-item">
+            <div class="meta-stat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div class="meta-stat-text">
+              Solo 4 minutos
+              <span>7 preguntas clave</span>
+            </div>
+          </div>
+          <div class="meta-stat-item">
+            <div class="meta-stat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+            </div>
+            <div class="meta-stat-text">
+              Gestión Privada y Pública
+              <span>Realidad educativa del país</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna Tarjeta Visual Ilustrativa -->
+      <div class="hero-visual">
+        <div class="hero-visual-card">
+          <div class="hero-card-header">
+            <h4>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+              </svg>
+              Matriz de Diagnóstico Institucional
+            </h4>
+            <span class="badge badge-accent">Vista previa</span>
+          </div>
+
+          <div class="radar-preview-list">
+            <div class="radar-item">
+              <div class="radar-label-row">
+                <span>Hardware & Equipamiento</span>
+                <span style="color: var(--color-primary)">75%</span>
+              </div>
+              <div class="radar-bar-bg">
+                <div class="radar-bar-fill fill-hardware"></div>
+              </div>
+            </div>
+
+            <div class="radar-item">
+              <div class="radar-label-row">
+                <span>Software & Plataformas LMS</span>
+                <span style="color: var(--color-accent-dark)">60%</span>
+              </div>
+              <div class="radar-bar-bg">
+                <div class="radar-bar-fill fill-software"></div>
+              </div>
+            </div>
+
+            <div class="radar-item">
+              <div class="radar-label-row">
+                <span>Infraestructura & Conectividad</span>
+                <span style="color: #6366F1">45%</span>
+              </div>
+              <div class="radar-bar-bg">
+                <div class="radar-bar-fill fill-infra"></div>
+              </div>
+            </div>
+
+            <div class="radar-item">
+              <div class="radar-label-row">
+                <span>Adopción y Cultura Docente</span>
+                <span style="color: #10B981">68%</span>
+              </div>
+              <div class="radar-bar-bg">
+                <div class="radar-bar-fill fill-docente"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-card-footer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; color: var(--color-primary);">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>Genera recomendaciones objetivas previas a presupuestos anuales o compras de equipamiento.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       BENEFICIOS PRINCIPALES
+       ========================================================================== -->
+  <section class="benefits-section" id="beneficios">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-accent">Metodología Educore</span>
+        <h2>Tres beneficios claros para tu equipo directivo</h2>
+        <p>Un enfoque técnico-pedagógico pensado para que cada sol invertido se traduzca en mejores aprendizajes y mayor eficiencia operativa.</p>
+      </div>
+
+      <div class="benefits-grid">
+        <!-- Beneficio 1 -->
+        <div class="benefit-card">
+          <div class="benefit-icon-wrapper benefit-icon-1">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 11 12 14 22 4"></polyline>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+          </div>
+          <h3>1. Diagnóstico sin costo</h3>
+          <p>Evalúa en menos de 5 minutos el estado actual de tu institución educativa sin costo ni ataduras comerciales. Obtén claridad técnica inmediata.</p>
+        </div>
+
+        <!-- Beneficio 2 -->
+        <div class="benefit-card">
+          <div class="benefit-icon-wrapper benefit-icon-2">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </div>
+          <h3>2. Recomendaciones a la medida</h3>
+          <p>Priorización adaptada según tu nivel de madurez: qué licencias mantener, qué red instalar y qué capacitaciones necesita tu cuerpo docente.</p>
+        </div>
+
+        <!-- Beneficio 3 -->
+        <div class="benefit-card">
+          <div class="benefit-icon-wrapper benefit-icon-3">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h3>3. Asesoría con expertos</h3>
+          <p>Conversa directamente con consultores especializados en transformación educativa para estructurar un plan de acción viable y con soporte técnico.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECCIÓN 2: DIAGNÓSTICO DE NECESIDADES TECNOLÓGICAS (CUESTIONARIO)
+       ========================================================================== */ -->
+  <section class="diag-section" id="diagnostico">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-primary">Herramienta de Diagnóstico</span>
+        <h2>Diagnóstico de Necesidades Tecnológicas</h2>
+        <p>Responde 7 preguntas sobre tus cuatro pilares institucionales: Hardware, Software, Infraestructura y Adopción Docente.</p>
+      </div>
+
+      <div class="quiz-container" id="quizContainer">
+        <!-- Header de progreso -->
+        <div class="progress-header">
+          <div class="progress-meta">
+            <span class="dimension-badge" id="currentDimensionBadge">Dimensión: Hardware</span>
+            <span id="questionCounter">Pregunta 1 de 7</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progressBarFill" style="width: 14%;"></div>
+          </div>
+        </div>
+
+        <!-- FORMULARIO / PREGUNTAS DEL TEST -->
+        <form id="quizForm" onsubmit="return false;">
+
+          <!-- PREGUNTA 1: Hardware - Equipos de cómputo -->
+          <div class="question-step active" data-step="1" data-dimension="Hardware" data-dim-name="Equipamiento de Cómputo">
+            <h3>1. ¿Cuál es la disponibilidad actual de dispositivos (laptops, PCs o tablets) para estudiantes y profesores?</h3>
+            <p class="question-instruction">Selecciona la opción que mejor represente la realidad de tu institución:</p>
+
+            <div class="options-grid">
+              <label class="option-card" onclick="selectOption(1, 1)">
+                <input type="radio" name="q1" value="1" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Uso exclusivo en sala de cómputo fija</div>
+                  <div class="option-desc">Solo hay computadoras de escritorio en laboratorios asignados; en las aulas ordinarias los alumnos no usan dispositivos.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                </div>
+              </label>
+
+              <label class="option-card" onclick="selectOption(1, 2)">
+                <input type="radio" name="q1" value="2" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Dispositivos móviles compartidos (carritos o kits)</div>
+                  <div class="option-desc">Contamos con carritos móviles de laptops o tablets que se prestan por turnos entre diferentes salones o niveles.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                </div>
+              </label>
+
+              <label class="option-card" onclick="selectOption(1, 3)">
+                <input type="radio" name="q1" value="3" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Dispositivos 1:1 o laptop permanente para docentes y alumnos</div>
+                  <div class="option-desc">Cada docente cuenta con laptop asignada y los estudiantes tienen acceso diario individual en sus aulas.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M2 20h20"></path></svg>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- PREGUNTA 2: Hardware en Aulas - Interactivas -->
+          <div class="question-step" data-step="2" data-dimension="Hardware" data-dim-name="Equipamiento en Aulas">
+            <h3>2. ¿Qué tecnología de proyección o interacción visual está instalada dentro de las aulas?</h3>
+            <p class="question-instruction">Evalúa el equipamiento audiovisual en la mayoría de sus salones:</p>
+
+            <div class="options-grid">
+              <label class="option-card" onclick="selectOption(2, 1)">
+                <input type="radio" name="q2" value="1" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Pizarra tradicional o proyector básico en pocas aulas</div>
+                  <div class="option-desc">Principalmente pizarra acrílica/tiza; los proyectores deben solicitarse con anticipación y trasladarse manualmente.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="14" rx="2"></rect></svg>
+                </div>
+              </label>
+
+              <label class="option-card" onclick="selectOption(2, 2)">
+                <input type="radio" name="q2" value="2" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Proyectores multimedia o Smart TVs fijos en la mayoría de aulas</div>
+                  <div class="option-desc">Cada aula tiene pantalla o proyector instalado con cables HDMI/VGA para que el docente proyecte diapositivas y videos.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
+                </div>
+              </label>
+
+              <label class="option-card" onclick="selectOption(2, 3)">
+                <input type="radio" name="q2" value="3" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Pantallas interactivas táctiles o proyectores interactivos</div>
+                  <div class="option-desc">Pantallas Smart Board / paneles interactivos con conexión inalámbrica, anotación táctil y audio integrado de alta definición.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- PREGUNTA 3: Software - Gestión Escolar y LMS -->
+          <div class="question-step" data-step="3" data-dimension="Software" data-dim-name="Plataforma de Gestión y LMS">
+            <h3>3. ¿Cómo gestiona la institución la comunicación académica, notas y aulas virtuales?</h3>
+            <p class="question-instruction">Considera la centralización del sistema académico y el aula virtual:</p>
+
+            <div class="options-grid">
+              <label class="option-card" onclick="selectOption(3, 1)">
+                <input type="radio" name="q3" value="1" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Hojas de cálculo (Excel) y grupos informales de WhatsApp</div>
+                  <div class="option-desc">No existe una plataforma oficial centralizada; la comunicación con padres y el registro de notas se realiza de forma manual y dispersa.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                </div>
+              </label>
+
+              <label class="option-card" onclick="selectOption(3, 2)">
+                <input type="radio" name="q3" value="2" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Sistema de notas básico o plataforma escolar sin aula virtual integrada</div>
+                  <div class="option-desc">Se usa un software administrativo (ej. intranet propia o sistema de notas), pero el trabajo pedagógico virtual es mínimo o desarticulado.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                </div>
+              </label>
+
+              <label class="option-card" onclick="selectOption(3, 3)">
+                <input type="radio" name="q3" value="3" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Ecosistema integral (LMS + Gestión escolar integrada)</div>
+                  <div class="option-desc">Uso consolidado de LMS (Google Workspace for Education, Moodle, Canvas, SieWeb) con cuentas institucionales para el 100% de la comunidad.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- PREGUNTA 4: Software y Recursos Pedagógicos Digitales -->
+          <div class="question-step" data-step="4" data-dimension="Software" data-dim-name="Recursos Pedagógicos Digitales">
+            <h3>4. ¿Qué tipo de herramientas digitales utiliza activamente el personal docente en sus clases?</h3>
+            <p class="question-instruction">Identifica el nivel de herramientas pedagógicas incorporadas:</p>
+
+            <div class="options-grid">
+              <label class="option-card" onclick="selectOption(4, 1)">
+                <input type="radio" name="q4" value="1" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Ofimática básica únicamente (Word, PowerPoint, PDFs)</div>
+                  <div class="option-desc">El uso digital se limita a mostrar presentaciones o imprimir material desde procesadores de texto sin dinamismo interactivo.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                </div>
+              </label>
+
+              <label class="option-card" onclick="selectOption(4, 2)">
+                <input type="radio" name="q4" value="2" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Herramientas interactivas gratuitas por iniciativa de algunos docentes</div>
+                  <div class="option-desc">Docentes entusiastas usan de forma libre Kahoot, Canva, Genially o Padlet, pero sin estandarización institucional.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+              </label>
+
+              <label class="option-card" onclick="selectOption(4, 3)">
+                <input type="radio" name="q4" value="3" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Suite pedagógica institucional estructurada</div>
+                  <div class="option-desc">La institución provee licencias educativas de software curricular, laboratorios virtuales, biblioteca digital y evaluaciones en línea.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- PREGUNTA 5: Infraestructura - Red y Conectividad -->
+          <div class="question-step" data-step="5" data-dimension="Infraestructura" data-dim-name="Conectividad y Red Escolar">
+            <h3>5. ¿Cuál es el estado de la conectividad a Internet y cobertura Wi-Fi en el campus escolar?</h3>
+            <p class="question-instruction">Considera la estabilidad de la red con múltiples usuarios conectados:</p>
+
+            <div class="options-grid">
+              <label class="option-card" onclick="selectOption(5, 1)">
+                <input type="radio" name="q5" value="1" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Internet exclusivo para oficinas y sala de cómputo; nula en aulas</div>
+                  <div class="option-desc">La señal no llega a las aulas de clase o el ancho de banda contratado es doméstico e insuficiente para trabajo escolar.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="1" y1="1" x2="23" y2="23"></line><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path><path d="M10.71 5.05A16 16 0 0 1 22.56 9"></path><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path></svg>
+                </div>
+              </label>
+
+              <label class="option-card" onclick="selectOption(5, 2)">
+                <input type="radio" name="q5" value="2" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Wi-Fi en algunas zonas, pero sufre caídas con muchos alumnos</div>
+                  <div class="option-desc">Hay routers convencionales en pasillos, pero la red colapsa o se vuelve lenta cuando más de un salón se conecta simultáneamente.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><circle cx="12" cy="20" r="1"></circle></svg>
+                </div>
+              </label>
+
+              <label class="option-card" onclick="selectOption(5, 3)">
+                <input type="radio" name="q5" value="3" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Red de alta densidad estructurada (Access Points profesionales)</div>
+                  <div class="option-desc">Fibra óptica dedicada, cableado estructurado certificado, filtrado de contenidos y soporte de cientos de conexiones concurrentes en aulas.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- PREGUNTA 6: Infraestructura - Servidores y Seguridad -->
+          <div class="question-step" data-step="6" data-dimension="Infraestructura" data-dim-name="Seguridad y Respaldo">
+            <h3>6. ¿Cómo se protegen los datos institucionales (expedientes, notas) y quién da soporte técnico?</h3>
+            <p class="question-instruction">Considera la continuidad operativa y copias de seguridad:</p>
+
+            <div class="options-grid">
+              <label class="option-card" onclick="selectOption(6, 1)">
+                <input type="radio" name="q6" value="1" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Archivos en PCs individuales y soporte técnico reactivo</div>
+                  <div class="option-desc">No hay política formal de copias de respaldo (backups) y el soporte técnico se llama solo cuando un equipo falla críticamente.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                </div>
+              </label>
+
+              <label class="option-card" onclick="selectOption(6, 2)">
+                <input type="radio" name="q6" value="2" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Nubes personales gratuitas y técnico a tiempo parcial</div>
+                  <div class="option-desc">Se guardan copias en Google Drive o OneDrive personales sin protocolo de retención institucional ni ciberseguridad formal.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+                </div>
+              </label>
+
+              <label class="option-card" onclick="selectOption(6, 3)">
+                <input type="radio" name="q6" value="3" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Nube institucional centralizada, backups automáticos y soporte preventivo</div>
+                  <div class="option-desc">Políticas claras de ciberseguridad, permisos por roles, copias cifradas y mantenimiento preventivo programado.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- PREGUNTA 7: Adopción Docente y Competencias Pedagógicas -->
+          <div class="question-step" data-step="7" data-dimension="Docente" data-dim-name="Adopción y Cultura Docente">
+            <h3>7. ¿Cuál es el nivel de adopción y capacitación del equipo docente en el uso de tecnologías educativas?</h3>
+            <p class="question-instruction">Considera la confianza pedagógica del cuerpo de profesores:</p>
+
+            <div class="options-grid">
+              <label class="option-card" onclick="selectOption(7, 1)">
+                <input type="radio" name="q7" value="1" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Sin uso o con resistencia notable</div>
+                  <div class="option-desc">Muchos docentes sienten inseguridad tecnológica; las herramientas digitales son vistas como una carga administrativa más.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="15" x2="16" y2="15"></line><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+                </div>
+              </label>
+
+              <label class="option-card" onclick="selectOption(7, 2)">
+                <input type="radio" name="q7" value="2" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Uso básico e instrumental (sustitución tradicional)</div>
+                  <div class="option-desc">Dominan correo, subida de calificaciones y presentaciones en pantalla, pero sin transformar las metodologías de enseñanza.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+                </div>
+              </label>
+
+              <label class="option-card" onclick="selectOption(7, 3)">
+                <input type="radio" name="q7" value="3" style="display:none;">
+                <div class="option-indicator"></div>
+                <div class="option-content">
+                  <div class="option-title">Uso integrado en metodologías activas con formación continua</div>
+                  <div class="option-desc">Aplican aula invertida, ABP, gamificación y colaboración en la nube con acompañamiento pedagógico permanente.</div>
+                </div>
+                <div class="option-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- BOTONES DE NAVEGACIÓN DEL TEST -->
+          <div class="quiz-nav-footer">
+            <button type="button" class="btn btn-outline btn-sm" id="btnPrev" onclick="navigateQuestion(-1)" style="visibility: hidden;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              <span>Anterior</span>
+            </button>
+
+            <span class="quiz-hint" id="quizHint">Selecciona una alternativa para continuar</span>
+
+            <button type="button" class="btn btn-primary btn-sm" id="btnNext" onclick="navigateQuestion(1)">
+              <span>Siguiente</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECCIÓN 3: RESULTADO DEL DIAGNÓSTICO
+       ========================================================================== -->
+  <section class="results-section" id="resultados">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-primary">Informe Preliminar</span>
+        <h2>Resultado del Diagnóstico Institucional</h2>
+        <p>A continuación se presenta el índice de madurez tecnológica calculado para tu institución educativa:</p>
+      </div>
+
+      <div class="results-card">
+        <div class="results-overview-grid">
+          <!-- Medidor visual de porcentaje / nivel -->
+          <div class="gauge-wrapper">
+            <div class="score-circle">
+              <svg viewBox="0 0 160 160">
+                <circle class="score-circle-bg" cx="80" cy="80" r="70"></circle>
+                <circle class="score-circle-progress" id="scoreCircleProgress" cx="80" cy="80" r="70"></circle>
+              </svg>
+              <div class="score-inner-text">
+                <span class="score-number" id="resultPercentage">0%</span>
+                <span class="score-max">Madurez Digital</span>
+              </div>
+            </div>
+
+            <div class="maturity-badge" id="resultMaturityBadge">
+              Nivel: Calculando...
+            </div>
+            <p style="font-size: 0.82rem; color: var(--color-text-muted);">Basado en 4 dimensiones evaluadas</p>
+          </div>
+
+          <!-- Detalles e interpretación ejecutiva -->
+          <div class="results-details">
+            <h3 id="resultTitle">Nivel Institucional</h3>
+            <p class="lead-explanation" id="resultExplanation">
+              Cargando interpretación técnica y pedagógica de los resultados obtenidos...
+            </p>
+
+            <!-- Desglose por dimensiones -->
+            <div class="dimensions-breakdown">
+              <div class="dim-item">
+                <div class="dim-header">
+                  <span>Hardware & Equipos</span>
+                  <span id="dimScoreHardware" style="color: var(--color-primary);">0%</span>
+                </div>
+                <div class="dim-bar">
+                  <div class="dim-bar-fill" id="dimBarHardware" style="width: 0%; background: var(--color-primary);"></div>
+                </div>
+              </div>
+
+              <div class="dim-item">
+                <div class="dim-header">
+                  <span>Software & LMS</span>
+                  <span id="dimScoreSoftware" style="color: var(--color-accent-dark);">0%</span>
+                </div>
+                <div class="dim-bar">
+                  <div class="dim-bar-fill" id="dimBarSoftware" style="width: 0%; background: var(--color-accent);"></div>
+                </div>
+              </div>
+
+              <div class="dim-item">
+                <div class="dim-header">
+                  <span>Infraestructura & Red</span>
+                  <span id="dimScoreInfra" style="color: #6366F1;">0%</span>
+                </div>
+                <div class="dim-bar">
+                  <div class="dim-bar-fill" id="dimBarInfra" style="width: 0%; background: #6366F1;"></div>
+                </div>
+              </div>
+
+              <div class="dim-item">
+                <div class="dim-header">
+                  <span>Adopción Docente</span>
+                  <span id="dimScoreDocente" style="color: #10B981;">0%</span>
+                </div>
+                <div class="dim-bar">
+                  <div class="dim-bar-fill" id="dimBarDocente" style="width: 0%; background: #10B981;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==========================================================================
+             SECCIÓN 4: TRES RECOMENDACIONES PERSONALIZADAS
+             ========================================================================== -->
+        <div class="recommendations-wrapper">
+          <div class="recs-header">
+            <h3>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              Recomendaciones Prioritarias para tu Institución
+            </h3>
+            <p>Acciones concretas recomendadas por el equipo consultor de Educore para el ciclo 2026:</p>
+          </div>
+
+          <div class="recs-grid" id="recommendationsGrid">
+            <!-- Las 3 tarjetas de recomendaciones se renderizan dinámicamente con JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECCIÓN 5: FORMULARIO PARA SOLICITAR ASESORÍA
+       ========================================================================== -->
+  <section class="advisory-section" id="asesoria">
+    <div class="container">
+      <div class="advisory-box">
+        <div class="advisory-header">
+          <span class="badge badge-accent">Paso Final</span>
+          <h2>Solicita una Asesoría Integral Personalizada</h2>
+          <p>Profundiza en estos hallazgos con un consultor tecnológico educativo de Educore. Diseñaremos juntos una hoja de ruta técnica realista y adaptada al presupuesto institucional.</p>
+          
+          <div class="advisory-context-pill" id="advisoryContextPill">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 14 14"></polyline>
+            </svg>
+            <span id="advisoryPillText">Completa el diagnóstico arriba para personalizar tu sesión</span>
+          </div>
+        </div>
+
+        <form id="advisoryForm" onsubmit="handleAdvisorySubmit(event)">
+          <div class="form-grid">
+            <!-- Nombre Completo -->
+            <div class="form-group">
+              <label for="advNombre" class="form-label">
+                <span>Nombre completo *</span>
+              </label>
+              <input type="text" id="advNombre" class="form-input" placeholder="Ej. Mg. Carlos Ramírez Flores" required>
+            </div>
+
+            <!-- Cargo -->
+            <div class="form-group">
+              <label for="advCargo" class="form-label">
+                <span>Cargo directivo o rol *</span>
+              </label>
+              <select id="advCargo" class="form-select" required>
+                <option value="" disabled selected>Selecciona tu cargo institucional</option>
+                <option value="Director General / Rectora">Director(a) General / Rector(a)</option>
+                <option value="Coordinador(a) Académico(a)">Coordinador(a) Académico(a) / Subdirector(a)</option>
+                <option value="Jefe / Coordinador de TI y Sistemas">Jefe / Coordinador(a) de TI y Sistemas</option>
+                <option value="Administrador(a) / Gerente General">Administrador(a) / Gerente General</option>
+                <option value="Promotor(a) / Miembro del Directorio">Promotor(a) / Miembro del Directorio</option>
+                <option value="Docente Líder Tecnológico">Docente Líder / Docente de Innovación</option>
+                <option value="Otro">Otro cargo directivo</option>
+              </select>
+            </div>
+
+            <!-- Nombre de la Institución -->
+            <div class="form-group">
+              <label for="advInstitucion" class="form-label">
+                <span>Nombre de la institución educativa *</span>
+              </label>
+              <input type="text" id="advInstitucion" class="form-input" placeholder="Ej. Colegio San Agustín / I.E. Miguel Grau" required>
+            </div>
+
+            <!-- Tipo de Institución -->
+            <div class="form-group">
+              <label class="form-label">
+                <span>Tipo de institución *</span>
+              </label>
+              <div class="radio-pill-group">
+                <label>
+                  <input type="radio" name="advTipo" value="Privada" checked>
+                  <div class="radio-pill-label">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                    Privada
+                  </div>
+                </label>
+                <label>
+                  <input type="radio" name="advTipo" value="Pública">
+                  <div class="radio-pill-label">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"></path><path d="M5 21V7l7-4 7 4v14"></path><path d="M9 10h1"></path><path d="M14 10h1"></path><path d="M9 14h1"></path><path d="M14 14h1"></path></svg>
+                    Pública
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Correo Electrónico -->
+            <div class="form-group">
+              <label for="advEmail" class="form-label">
+                <span>Correo institucional o de contacto *</span>
+              </label>
+              <input type="email" id="advEmail" class="form-input" placeholder="carlos.ramirez@colegio.edu.pe" required>
+            </div>
+
+            <!-- Teléfono / WhatsApp -->
+            <div class="form-group">
+              <label for="advTelefono" class="form-label">
+                <span>Teléfono / Celular WhatsApp</span>
+                <span class="optional">(Opcional)</span>
+              </label>
+              <input type="tel" id="advTelefono" class="form-input" placeholder="Ej. 998 123 456" pattern="[0-9+ \-]{6,15}">
+            </div>
+
+            <!-- Mensaje Adicional -->
+            <div class="form-group form-full">
+              <label for="advMensaje" class="form-label">
+                <span>Mensaje adicional o principal inquietud tecnológica</span>
+                <span class="optional">(Opcional)</span>
+              </label>
+              <textarea id="advMensaje" class="form-textarea" placeholder="Ej. Planeamos renovar proyectores en secundaria para el 2026 y queremos saber si conviene migrar a pantallas interactivas o reforzar primero la red Wi-Fi."></textarea>
+            </div>
+
+            <!-- Botón de Envío -->
+            <div class="form-group form-full" style="margin-top: 10px;">
+              <button type="submit" class="btn btn-primary btn-lg btn-block" id="btnSubmitAdvisory">
+                <span>Solicitar asesoría gratuita</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-footer-note">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            Tus datos institucionales son confidenciales y están protegidos conforme a la Ley N° 29733 (Perú).
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECCIÓN 6: CONFIRMACIÓN DE SOLICITUD (PANTALLA DE ÉXITO)
+       ========================================================================== -->
+  <section class="confirmation-section" id="confirmacion">
+    <div class="container">
+      <div class="success-card">
+        <div class="success-icon-badge">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+
+        <h2>¡Solicitud registrada con éxito!</h2>
+        <p class="success-intro">
+          Muchas gracias por confiar en Educore. Nos pondremos en contacto contigo en <strong>menos de 24 horas hábiles</strong> para coordinar la sesión estratégica 1 a 1 de tu institución.
+        </p>
+
+        <!-- Ticket Resumen Guardado -->
+        <div class="summary-ticket">
+          <div class="summary-ticket-header">
+            <span>RESUMEN DE SOLICITUD DE ASESORÍA</span>
+            <span id="ticketFolio" style="color: var(--color-primary);">EDC-2026-0000</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Institución:</span>
+            <span id="ticketInstitucion">-</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Responsable:</span>
+            <span id="ticketNombre">-</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Cargo:</span>
+            <span id="ticketCargo">-</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Tipo de Gestión:</span>
+            <span id="ticketTipo">-</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Correo de Contacto:</span>
+            <span id="ticketEmail">-</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Nivel Diagnosticado:</span>
+            <span id="ticketMaturity" style="color: var(--color-primary);">-</span>
+          </div>
+
+          <div class="summary-row" style="margin-bottom: 0;">
+            <span>Puntaje Obtenido:</span>
+            <span id="ticketScore">-</span>
+          </div>
+        </div>
+
+        <div class="success-actions">
+          <button type="button" class="btn btn-outline" onclick="window.print()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            <span>Imprimir / Guardar en PDF</span>
+          </button>
+
+          <button type="button" class="btn btn-primary" onclick="resetApp()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="1 4 1 10 7 10"></polyline>
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+            </svg>
+            <span>Realizar otro diagnóstico</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo" style="display: inline-flex;">
+            <div class="brand-icon" style="width: 32px; height: 32px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+            </div>
+            <span>Educore<span class="dot">.</span></span>
+          </div>
+          <p>Plataforma de diagnóstico y asesoría estratégica de tecnología educativa adaptada a colegios públicos y privados de Lima y regiones del Perú.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="#inicio">Inicio</a>
+          <a href="#diagnostico">Diagnóstico</a>
+          <a href="#beneficios">Beneficios</a>
+          <a href="#asesoria">Contacto</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Educore. Todos los derechos reservados. Desarrollado para instituciones educativas peruanas.</span>
+        <span>Asesoría Tecnológica Independiente</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       JAVASCRIPT: LÓGICA DE DIAGNÓSTICO, RECOMENDACIONES Y LOCALSTORAGE
+       ========================================================================== -->
+  <script>
+    /* ==========================================================================
+       1. ESTADO DE LA APLICACIÓN
+       ========================================================================== */
+    const appState = {
+      currentStep: 1,
+      totalSteps: 7,
+      answers: {
+        q1: null, // Hardware - Computadoras
+        q2: null, // Hardware - Pantallas / Aulas
+        q3: null, // Software - LMS / Gestión
+        q4: null, // Software - Herramientas Pedagógicas
+        q5: null, // Infraestructura - Wi-Fi / Conectividad
+        q6: null, // Infraestructura - Backups / Servidores
+        q7: null  // Docente - Adopción / Capacitación
+      },
+      scorePercent: 0,
+      maturityLevel: '', // 'Inicial', 'En desarrollo', 'Avanzado'
+      dimensionScores: {
+        hardware: 0,
+        software: 0,
+        infraestructura: 0,
+        docente: 0
+      },
+      recommendations: []
+    };
+
+    /* Dimensiones asociadas a cada pregunta para actualizar el badge */
+    const stepMetadata = {
+      1: { dimension: 'Hardware', label: 'Dimensión: Hardware & Equipos' },
+      2: { dimension: 'Hardware', label: 'Dimensión: Equipamiento en Aulas' },
+      3: { dimension: 'Software', label: 'Dimensión: Software & Plataformas' },
+      4: { dimension: 'Software', label: 'Dimensión: Recursos Pedagógicos' },
+      5: { dimension: 'Infraestructura', label: 'Dimensión: Conectividad & Red' },
+      6: { dimension: 'Infraestructura', label: 'Dimensión: Seguridad & Respaldo' },
+      7: { dimension: 'Docente', label: 'Dimensión: Adopción & Competencias' }
+    };
+
+    /* Catálogo de Recomendaciones predefinidas */
+    const recommendationsCatalog = {
+      hardware_low: {
+        id: 'rec_hw_low',
+        priority: 'Prioridad Inmediata',
+        priorityClass: 'rec-badge-high',
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>`,
+        title: 'Plan Maestro de Renovación Gradual de Hardware',
+        description: 'Priorizar carritos móviles o kits de dispositivos compartidos antes de compras masivas 1:1, asegurando un Costo Total de Propiedad (TCO) sostenible.'
+      },
+      hardware_mid: {
+        id: 'rec_hw_mid',
+        priority: 'Estratégico',
+        priorityClass: 'rec-badge-strategic',
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>`,
+        title: 'Modernización de Aulas Interactivas',
+        description: 'Migrar proyectores estándar a pantallas interactivas o paneles táctiles con soporte multitáctil y conectividad inalámbrica libre de cables.'
+      },
+      software_low: {
+        id: 'rec_sw_low',
+        priority: 'Prioridad Inmediata',
+        priorityClass: 'rec-badge-high',
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`,
+        title: 'Implementación y Consolidación de un LMS Oficial',
+        description: 'Adoptar una plataforma centralizada (Google Workspace for Education, SieWeb o Canvas) para ordenar notas, comunicación institucional y contenidos.'
+      },
+      software_mid: {
+        id: 'rec_sw_mid',
+        priority: 'Crecimiento',
+        priorityClass: 'rec-badge-growth',
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`,
+        title: 'Estandarización de Licencias y Recursos Educativos',
+        description: 'Homologar el software pedagógico de los docentes bajo suscripciones educativas institucionales para evitar cuentas dispersas y proteger la propiedad intelectual.'
+      },
+      infra_low: {
+        id: 'rec_infra_low',
+        priority: 'Crítico Institucional',
+        priorityClass: 'rec-badge-high',
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path></svg>`,
+        title: 'Red Wi-Fi Escolar de Alta Densidad y Seguridad',
+        description: 'Reemplazar routers residenciales por Access Points administrados en la nube con capacidad para 40+ dispositivos concurrentes por aula y filtrado web escolar.'
+      },
+      infra_mid: {
+        id: 'rec_infra_mid',
+        priority: 'Estratégico',
+        priorityClass: 'rec-badge-strategic',
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`,
+        title: 'Protocolos de Respaldo Automático y Ciberseguridad',
+        description: 'Centralizar expedientes académicos bajo nubes seguras institucionales con roles de acceso y copias automatizadas conforme a la normativa peruana.'
+      },
+      docente_low: {
+        id: 'rec_doc_low',
+        priority: 'Prioridad Inmediata',
+        priorityClass: 'rec-badge-high',
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>`,
+        title: 'Plan de Capacitación y Sensibilización Docente',
+        description: 'Diseñar talleres prácticos focalizados en eliminar el temor tecnológico y aplicar herramientas básicas en el aula sin sobrecarga administrativa.'
+      },
+      docente_mid: {
+        id: 'rec_doc_mid',
+        priority: 'Crecimiento',
+        priorityClass: 'rec-badge-growth',
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`,
+        title: 'Acompañamiento en Metodologías Activas Digitales',
+        description: 'Formar a docentes en integración pedagógica avanzada (Aula Invertida, Gamificación y Evaluación Formativa) con rúbricas de desempeño digital.'
+      },
+      advanced_lead: {
+        id: 'rec_adv_lead',
+        priority: 'Innovación / Liderazgo',
+        priorityClass: 'rec-badge-strategic',
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>`,
+        title: 'Analítica de Aprendizaje e Inteligencia Artificial Ética',
+        description: 'Consolidar tableros de analítica educativa preventiva para retención estudiantil y guías institucionales para el uso formativo de IA en el aula.'
+      }
+    };
+
+    /* ==========================================================================
+       2. CONTROL Y NAVEGACIÓN DEL DIAGNÓSTICO
+       ========================================================================== */
+    function selectOption(stepNumber, optionValue) {
+      // Guardar valor en el estado
+      const key = `q${stepNumber}`;
+      appState.answers[key] = optionValue;
+
+      // Actualizar estilo visual en el DOM
+      const stepEl = document.querySelector(`.question-step[data-step="${stepNumber}"]`);
+      if (stepEl) {
+        const cards = stepEl.querySelectorAll('.option-card');
+        cards.forEach((card, idx) => {
+          if (idx + 1 === optionValue) {
+            card.classList.add('selected');
+            const radio = card.querySelector('input[type="radio"]');
+            if (radio) radio.checked = true;
+          } else {
+            card.classList.remove('selected');
+          }
+        });
+      }
+
+      // Ocultar mensaje de advertencia si existía
+      document.getElementById('quizHint').textContent = "Opción guardada. Haz clic en Siguiente.";
+      document.getElementById('quizHint').style.color = "var(--color-text-light)";
+
+      // Avance automático sutil tras 280ms para mayor agilidad
+      setTimeout(() => {
+        if (appState.currentStep < appState.totalSteps) {
+          navigateQuestion(1);
+        } else if (appState.currentStep === appState.totalSteps) {
+          // Última pregunta: resaltar botón de finalización
+          const btnNext = document.getElementById('btnNext');
+          btnNext.innerHTML = `<span>Ver resultados</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+          btnNext.classList.remove('btn-primary');
+          btnNext.classList.add('btn-accent');
+        }
+      }, 260);
+    }
+
+    function navigateQuestion(direction) {
+      const current = appState.currentStep;
+      const target = current + direction;
+
+      // Validación al avanzar: verificar que haya seleccionado respuesta
+      if (direction > 0) {
+        const key = `q${current}`;
+        if (!appState.answers[key]) {
+          const hint = document.getElementById('quizHint');
+          hint.textContent = "Por favor selecciona una alternativa para continuar.";
+          hint.style.color = "#DC2626";
+          return;
+        }
+      }
+
+      // Si terminamos la última pregunta (paso 7), calcular y mostrar resultados
+      if (target > appState.totalSteps) {
+        calculateAndShowResults();
+        return;
+      }
+
+      // Si nos movemos entre 1 y 7
+      if (target >= 1 && target <= appState.totalSteps) {
+        // Ocultar actual
+        const currentStepEl = document.querySelector(`.question-step[data-step="${current}"]`);
+        if (currentStepEl) currentStepEl.classList.remove('active');
+
+        // Mostrar nuevo
+        const targetStepEl = document.querySelector(`.question-step[data-step="${target}"]`);
+        if (targetStepEl) targetStepEl.classList.add('active');
+
+        appState.currentStep = target;
+
+        // Actualizar barra de progreso y badges
+        updateProgressBar(target);
+      }
+    }
+
+    function updateProgressBar(step) {
+      const percent = Math.round((step / appState.totalSteps) * 100);
+      document.getElementById('progressBarFill').style.width = `${percent}%`;
+      document.getElementById('questionCounter').textContent = `Pregunta ${step} de ${appState.totalSteps}`;
+
+      const meta = stepMetadata[step];
+      if (meta) {
+        document.getElementById('currentDimensionBadge').textContent = meta.label;
+      }
+
+      // Botón Anterior
+      const btnPrev = document.getElementById('btnPrev');
+      if (step === 1) {
+        btnPrev.style.visibility = 'hidden';
+      } else {
+        btnPrev.style.visibility = 'visible';
+      }
+
+      // Botón Siguiente
+      const btnNext = document.getElementById('btnNext');
+      if (step === appState.totalSteps) {
+        btnNext.innerHTML = `<span>Ver resultados</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+        btnNext.classList.remove('btn-primary');
+        btnNext.classList.add('btn-accent');
+      } else {
+        btnNext.innerHTML = `<span>Siguiente</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+        btnNext.classList.remove('btn-accent');
+        btnNext.classList.add('btn-primary');
+      }
+
+      document.getElementById('quizHint').textContent = "Selecciona una alternativa para continuar";
+      document.getElementById('quizHint').style.color = "var(--color-text-light)";
+    }
+
+    /* ==========================================================================
+       3. CÁLCULO DE MADUREZ DIGITAL Y SELECCIÓN DE RECOMENDACIONES
+       ========================================================================== */
+    function calculateAndShowResults() {
+      const a = appState.answers;
+
+      // Puntuaciones por dimensión (valores posibles por pregunta: 1, 2 o 3)
+      // Hardware: q1 (peso 1) + q2 (peso 1) -> mín 2, máx 6
+      const hwRaw = (a.q1 || 1) + (a.q2 || 1);
+      const hwPercent = Math.round(((hwRaw - 2) / 4) * 100);
+
+      // Software: q3 (peso 1) + q4 (peso 1) -> mín 2, máx 6
+      const swRaw = (a.q3 || 1) + (a.q4 || 1);
+      const swPercent = Math.round(((swRaw - 2) / 4) * 100);
+
+      // Infraestructura: q5 (peso 1) + q6 (peso 1) -> mín 2, máx 6
+      const infRaw = (a.q5 || 1) + (a.q6 || 1);
+      const infPercent = Math.round(((infRaw - 2) / 4) * 100);
+
+      // Docente: q7 (peso 2 para nivelar peso con 2 preguntas) -> mín 1, máx 3
+      const docRaw = a.q7 || 1;
+      const docPercent = Math.round(((docRaw - 1) / 2) * 100);
+
+      // Promedio general ponderado
+      const overallPercent = Math.round((hwPercent + swPercent + infPercent + docPercent) / 4);
+
+      appState.scorePercent = overallPercent;
+      appState.dimensionScores = {
+        hardware: hwPercent,
+        software: swPercent,
+        infraestructura: infPercent,
+        docente: docPercent
+      };
+
+      // Determinar nivel de madurez: Inicial (0-45), En desarrollo (46-75), Avanzado (76-100)
+      let maturity = '';
+      let badgeClass = '';
+      let title = '';
+      let explanation = '';
+
+      if (overallPercent <= 45) {
+        maturity = 'Inicial';
+        badgeClass = 'badge-level-initial';
+        title = 'Nivel Inicial: Infraestructura Básica en Transición';
+        explanation = `Tu institución se encuentra en una etapa exploratoria inicial. Existen esfuerzos aislados, pero la falta de equipamiento homogéneo, la conectividad limitada en aulas y la ausencia de un ecosistema LMS centralizado dificultan el aprovechamiento pedagógico. La prioridad debe enfocarse en consolidar una base tecnológica estable y capacitar a la plana docente antes de adquirir soluciones complejas.`;
+      } else if (overallPercent <= 75) {
+        maturity = 'En desarrollo';
+        badgeClass = 'badge-level-developing';
+        title = 'Nivel En Desarrollo: Ecosistema Digital en Crecimiento';
+        explanation = `Tu institución ha alcanzado un nivel de adopción notable en varias áreas. Cuentas con herramientas digitales en uso y dispositivos disponibles, pero persisten cuellos de botella en la conectividad concurrente de alta densidad, la integración plena de plataformas escolares o el acompañamiento metodológico continuo a los docentes. Con un plan estratégico focalizado, tu institución puede consolidar un modelo de aula moderna de alto rendimiento.`;
+      } else {
+        maturity = 'Avanzado';
+        badgeClass = 'badge-level-advanced';
+        title = 'Nivel Avanzado: Cultura Digital Consolidada';
+        explanation = `Tu institución destaca con una sólida infraestructura tecnológica, plataformas centralizadas y un equipo docente con competencias pedagógicas integradas. El desafío estratégico en esta fase consiste en la optimización continua de costos, ciberseguridad avanzada para la protección de menores, analítica de aprendizaje predictiva e innovación con inteligencia artificial guiada.`;
+      }
+
+      appState.maturityLevel = maturity;
+
+      // Seleccionar 3 recomendaciones inteligentes según debilidades específicas
+      const selectedRecs = selectTailoredRecommendations(hwPercent, swPercent, infPercent, docPercent, overallPercent);
+      appState.recommendations = selectedRecs;
+
+      // Guardar en localStorage
+      saveDiagnosticToStorage();
+
+      // Renderizar vista de resultados
+      renderResultsUI(overallPercent, maturity, badgeClass, title, explanation, selectedRecs);
+
+      // Mostrar sección de resultados con scroll suave
+      const resultsSection = document.getElementById('resultados');
+      resultsSection.classList.add('active');
+      resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Actualizar píldora de contexto en el formulario de asesoría
+      const pill = document.getElementById('advisoryContextPill');
+      pill.innerHTML = `
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>Diagnóstico completado: Nivel ${maturity} (${overallPercent}%)</span>
+      `;
+      pill.style.background = "var(--color-primary-light)";
+      pill.style.color = "var(--color-primary)";
+    }
+
+    /* Selección condicional de 3 recomendaciones según dimensiones */
+    function selectTailoredRecommendations(hw, sw, inf, doc, overall) {
+      const recs = [];
+
+      // Evaluar la dimensión más crítica (la de menor porcentaje)
+      const dims = [
+        { name: 'hw', val: hw },
+        { name: 'sw', val: sw },
+        { name: 'inf', val: inf },
+        { name: 'doc', val: doc }
+      ];
+      dims.sort((a, b) => a.val - b.val);
+
+      // 1. Recomendación para la debilidad #1
+      if (dims[0].name === 'inf') {
+        recs.push(dims[0].val <= 50 ? recommendationsCatalog.infra_low : recommendationsCatalog.infra_mid);
+      } else if (dims[0].name === 'doc') {
+        recs.push(dims[0].val <= 50 ? recommendationsCatalog.docente_low : recommendationsCatalog.docente_mid);
+      } else if (dims[0].name === 'sw') {
+        recs.push(dims[0].val <= 50 ? recommendationsCatalog.software_low : recommendationsCatalog.software_mid);
+      } else {
+        recs.push(dims[0].val <= 50 ? recommendationsCatalog.hardware_low : recommendationsCatalog.hardware_mid);
+      }
+
+      // 2. Recomendación para la debilidad #2
+      if (dims[1].name === 'inf') {
+        recs.push(dims[1].val <= 50 ? recommendationsCatalog.infra_low : recommendationsCatalog.infra_mid);
+      } else if (dims[1].name === 'doc') {
+        recs.push(dims[1].val <= 50 ? recommendationsCatalog.docente_low : recommendationsCatalog.docente_mid);
+      } else if (dims[1].name === 'sw') {
+        recs.push(dims[1].val <= 50 ? recommendationsCatalog.software_low : recommendationsCatalog.software_mid);
+      } else {
+        recs.push(dims[1].val <= 50 ? recommendationsCatalog.hardware_low : recommendationsCatalog.hardware_mid);
+      }
+
+      // 3. Recomendación complementaria o de visión estratégica
+      if (overall >= 75) {
+        recs.push(recommendationsCatalog.advanced_lead);
+      } else if (dims[2].name === 'doc' && !recs.some(r => r.id.startsWith('rec_doc'))) {
+        recs.push(recommendationsCatalog.docente_mid);
+      } else if (!recs.some(r => r.id.startsWith('rec_sw'))) {
+        recs.push(recommendationsCatalog.software_mid);
+      } else {
+        recs.push(recommendationsCatalog.hardware_mid);
+      }
+
+      // Asegurar que sean exactamente 3 y no haya duplicados
+      const unique = [];
+      const seenIds = new Set();
+      for (const r of recs) {
+        if (!seenIds.has(r.id)) {
+          seenIds.add(r.id);
+          unique.push(r);
+        }
+        if (unique.length === 3) break;
+      }
+
+      // Si por alguna razón faltan, rellenar con estratégico
+      while (unique.length < 3) {
+        unique.push(recommendationsCatalog.docente_mid);
+      }
+
+      return unique;
+    }
+
+    /* Renderizar la información en el DOM */
+    function renderResultsUI(percent, maturity, badgeClass, title, explanation, recs) {
+      // Texto de porcentaje
+      document.getElementById('resultPercentage').textContent = `${percent}%`;
+
+      // Círculo SVG animado
+      const circle = document.getElementById('scoreCircleProgress');
+      const circumference = 2 * Math.PI * 70; // 440
+      const offset = circumference - (percent / 100) * circumference;
+      circle.style.strokeDasharray = `${circumference}`;
+      setTimeout(() => {
+        circle.style.strokeDashoffset = `${offset}`;
+        // Color dinámico según nivel
+        if (maturity === 'Inicial') {
+          circle.style.stroke = 'var(--color-status-initial)';
+        } else if (maturity === 'En desarrollo') {
+          circle.style.stroke = 'var(--color-primary)';
+        } else {
+          circle.style.stroke = 'var(--color-status-advanced)';
+        }
+      }, 100);
+
+      // Badge de madurez
+      const badge = document.getElementById('resultMaturityBadge');
+      badge.className = `maturity-badge ${badgeClass}`;
+      badge.textContent = `Nivel: ${maturity}`;
+
+      // Título y explicación
+      document.getElementById('resultTitle').textContent = title;
+      document.getElementById('resultExplanation').textContent = explanation;
+
+      // Desglose de barras por dimensión
+      const scores = appState.dimensionScores;
+      document.getElementById('dimScoreHardware').textContent = `${scores.hardware}%`;
+      document.getElementById('dimBarHardware').style.width = `${scores.hardware}%`;
+
+      document.getElementById('dimScoreSoftware').textContent = `${scores.software}%`;
+      document.getElementById('dimBarSoftware').style.width = `${scores.software}%`;
+
+      document.getElementById('dimScoreInfra').textContent = `${scores.infraestructura}%`;
+      document.getElementById('dimBarInfra').style.width = `${scores.infraestructura}%`;
+
+      document.getElementById('dimScoreDocente').textContent = `${scores.docente}%`;
+      document.getElementById('dimBarDocente').style.width = `${scores.docente}%`;
+
+      // Renderizar las 3 recomendaciones
+      const recsGrid = document.getElementById('recommendationsGrid');
+      recsGrid.innerHTML = '';
+
+      recs.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'rec-card';
+        card.innerHTML = `
+          <div class="rec-badge ${item.priorityClass}">${item.priority}</div>
+          <div class="rec-icon">
+            ${item.icon}
+          </div>
+          <h4>${index + 1}. ${item.title}</h4>
+          <p>${item.description}</p>
+        `;
+        recsGrid.appendChild(card);
+      });
+    }
+
+    /* ==========================================================================
+       4. ENVÍO Y ALMACENAMIENTO DE LA ASESORÍA (LOCALSTORAGE)
+       ========================================================================== */
+    function saveDiagnosticToStorage() {
+      try {
+        const data = {
+          timestamp: new Date().toISOString(),
+          answers: appState.answers,
+          scorePercent: appState.scorePercent,
+          maturityLevel: appState.maturityLevel,
+          dimensionScores: appState.dimensionScores,
+          recommendations: appState.recommendations.map(r => ({ id: r.id, title: r.title }))
+        };
+        localStorage.setItem('educore_diagnostic', JSON.stringify(data));
+      } catch (err) {
+        console.warn('No se pudo guardar en localStorage:', err);
+      }
+    }
+
+    function handleAdvisorySubmit(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById('btnSubmitAdvisory');
+      btn.disabled = true;
+      btn.innerHTML = `<span>Procesando solicitud...</span>`;
+
+      // Extraer datos del formulario
+      const nombre = document.getElementById('advNombre').value.trim();
+      const cargo = document.getElementById('advCargo').value;
+      const institucion = document.getElementById('advInstitucion').value.trim();
+      const tipoRadio = document.querySelector('input[name="advTipo"]:checked');
+      const tipo = tipoRadio ? tipoRadio.value : 'Privada';
+      const email = document.getElementById('advEmail').value.trim();
+      const telefono = document.getElementById('advTelefono').value.trim();
+      const mensaje = document.getElementById('advMensaje').value.trim();
+
+      // Generar código de folio único
+      const randomId = Math.floor(1000 + Math.random() * 9000);
+      const folio = `EDC-${new Date().getFullYear()}-${randomId}`;
+
+      const advisoryData = {
+        folio: folio,
+        createdAt: new Date().toISOString(),
+        contacto: {
+          nombre,
+          cargo,
+          institucion,
+          tipo,
+          email,
+          telefono,
+          mensaje
+        },
+        diagnostico: {
+          scorePercent: appState.scorePercent || 50,
+          maturityLevel: appState.maturityLevel || 'En desarrollo',
+          dimensionScores: appState.dimensionScores,
+          answers: appState.answers,
+          recommendations: appState.recommendations.map(r => r.title)
+        }
+      };
+
+      // Guardar en localStorage
+      try {
+        localStorage.setItem('educore_advisory_request', JSON.stringify(advisoryData));
+        // Guardar también en un historial de solicitudes si ya existieran otras
+        const history = JSON.parse(localStorage.getItem('educore_history') || '[]');
+        history.push(advisoryData);
+        localStorage.setItem('educore_history', JSON.stringify(history));
+      } catch (err) {
+        console.warn('Error al guardar en localStorage:', err);
+      }
+
+      // Simular latencia de red realista de 600ms
+      setTimeout(() => {
+        // Actualizar ticket resumen de éxito
+        document.getElementById('ticketFolio').textContent = folio;
+        document.getElementById('ticketInstitucion').textContent = institucion;
+        document.getElementById('ticketNombre').textContent = nombre;
+        document.getElementById('ticketCargo').textContent = cargo;
+        document.getElementById('ticketTipo').textContent = tipo;
+        document.getElementById('ticketEmail').textContent = email;
+        document.getElementById('ticketMaturity').textContent = appState.maturityLevel || 'En desarrollo';
+        document.getElementById('ticketScore').textContent = `${appState.scorePercent || 50}%`;
+
+        // Ocultar sección de formulario
+        document.getElementById('asesoria').style.display = 'none';
+
+        // Mostrar sección de confirmación
+        const confirmSection = document.getElementById('confirmacion');
+        confirmSection.classList.add('active');
+        confirmSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        btn.disabled = false;
+        btn.innerHTML = `<span>Solicitar asesoría gratuita</span>`;
+      }, 650);
+    }
+
+    function resetApp() {
+      // Reiniciar estado
+      appState.currentStep = 1;
+      appState.answers = { q1: null, q2: null, q3: null, q4: null, q5: null, q6: null, q7: null };
+      appState.scorePercent = 0;
+      appState.maturityLevel = '';
+      appState.recommendations = [];
+
+      // Desmarcar todas las opciones seleccionadas
+      document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+      document.querySelectorAll('input[type="radio"]').forEach(r => {
+        if (r.name.startsWith('q')) r.checked = false;
+      });
+
+      // Resetear pasos del test
+      document.querySelectorAll('.question-step').forEach((step, idx) => {
+        if (idx === 0) step.classList.add('active');
+        else step.classList.remove('active');
+      });
+
+      updateProgressBar(1);
+
+      // Ocultar resultados y confirmación
+      document.getElementById('resultados').classList.remove('active');
+      document.getElementById('confirmacion').classList.remove('active');
+
+      // Restaurar visibilidad del formulario de asesoría y resetearlo
+      document.getElementById('asesoria').style.display = 'block';
+      document.getElementById('advisoryForm').reset();
+      document.getElementById('advisoryContextPill').innerHTML = `
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 14 14"></polyline>
+        </svg>
+        <span>Completa el diagnóstico arriba para personalizar tu sesión</span>
+      `;
+
+      // Regresar al inicio suavemente
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ==========================================================================
+       5. INICIALIZACIÓN Y EVENTOS AL CARGAR
+       ========================================================================== */
+    document.addEventListener('DOMContentLoaded', () => {
+      // Verificar si ya existía un diagnóstico previo en localStorage para facilitar la experiencia
+      try {
+        const saved = localStorage.getItem('educore_diagnostic');
+        if (saved) {
+          console.log('Se encontró un diagnóstico previo en localStorage:', JSON.parse(saved));
+        }
+      } catch (e) {
+        // Silencioso
+      }
+
+      // Smooth scroll para enlaces internos
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const targetId = this.getAttribute('href');
+          if (targetId && targetId !== '#') {
+            const targetEl = document.querySelector(targetId);
+            if (targetEl) {
+              e.preventDefault();
+              targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
